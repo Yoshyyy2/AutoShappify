@@ -84,8 +84,7 @@ def premium_emoji(text: str) -> str:
 
 def get_main_menu_keyboard(user_id=None):
     buttons = [
-        [Button.inline(" Cᴍᴅ", b"show_cmds", style="success", icon=4904936030232117798),
-         Button.url(" Cʜᴀɴɴᴇʟ", "https://t.me/+kxhCcDXQgzQ5MjE0", style="success", icon=5445408306669582934)]
+        [Button.inline(" Cᴍᴅ", b"show_cmds", style="success", icon=4904936030232117798)]
     ]
     if user_id and user_id in ADMIN_ID:
         buttons.append([Button.inline(" Aᴅᴍɪɴ Pᴀɴᴇʟ", b"admin_panel", style="success", icon=6266995104687330978)])
@@ -264,7 +263,7 @@ async def send_hit_to_channel(card, status, response, gateway, price):
 🛒 Gᴀᴛᴇᴡᴀʏ {gateway}
 📝 {response[:45]}
 ⏱️ {time_str}
-🍑 <a href='tg://user?id=8978049174'>Aꜰᴜᴏɴᴀ</a>""")
+""")
         sent_msg = await bot.send_message(abs(HITS_CHANNEL_ID), msg, parse_mode='html')
         if should_pin:
             try:
@@ -677,7 +676,7 @@ async def start(event):
 
 🎁 Hᴏᴡ ᴛᴏ ᴜsᴇ:
    🦉 /addproxy
-   🦉 /cc ᴄᴀʀᴅ|ᴍᴍ|ʏʏ|ᴄᴠᴠ
+   🦉 /sh ᴄᴀʀᴅ|ᴍᴍ|ʏʏ|ᴄᴠᴠ
    🔑 /redeem Kᴇʏ
 
 💡 Bᴏᴛ Dᴇᴠ @Xyoshy
@@ -692,8 +691,8 @@ async def show_commands_callback(event):
     commands_text = """📋 Usᴇʀ Cᴏᴍᴍᴀɴᴅs
 
 🛒 Sʜᴏᴘɪғʏ
-├─ <code>/cc ᴄᴄ|ᴍᴍ|ʏʏ|ᴄᴠᴠ</code> → Cʜᴇᴄᴋ sɪɴɢʟᴇ ᴄᴀʀᴅ
-└─ <code>/chk</code> → Mᴀss ᴄʜᴇᴄᴋ ғʀᴏᴍ .ᴛxᴛ ғɪʟᴇ
+├─ <code>/sh ᴄᴄ|ᴍᴍ|ʏʏ|ᴄᴠᴠ</code> → Cʜᴇᴄᴋ sɪɴɢʟᴇ ᴄᴀʀᴅ
+└─ <code>/msh</code> → Mᴀss ᴄʜᴇᴄᴋ ғʀᴏᴍ .ᴛxᴛ ғɪʟᴇ
 
 🔌 Pʀᴏxʏ Mᴀɴᴀɢᴇᴍᴇɴᴛ
 ├─ <code>/proxy</code> → Cʜᴇᴄᴋ & ʀᴇᴍᴏᴠᴇ ᴅᴇᴀᴅ ᴘʀᴏxɪᴇs
@@ -774,7 +773,7 @@ async def main_menu_callback(event):
 
 🎁 Hᴏᴡ ᴛᴏ ᴜsᴇ:
    🦉 /addproxy
-   🦉 /cc ᴄᴀʀᴅ|ᴍᴍ|ʏʏ|ᴄᴠᴠ
+   🦉 /sh ᴄᴀʀᴅ|ᴍᴍ|ʏʏ|ᴄᴠᴠ
    🔑 /redeem Kᴇʏ
 
 💡 Bᴏᴛ Dᴇᴠ @Xyoshy
@@ -842,7 +841,7 @@ async def cancel_filter_callback(event):
     await event.edit(premium_emoji("❌ Cᴀɴᴄᴇʟʟᴇᴅ."), parse_mode='html')
     await event.answer("✅ Cᴀɴᴄᴇʟʟᴇᴅ", alert=True)
 
-@bot.on(events.NewMessage(pattern=r'/cc\s+'))
+@bot.on(events.NewMessage(pattern=r'/sh\s+'))
 async def single_cc_check(event):
     user_id = event.sender_id
     try:
@@ -864,7 +863,7 @@ async def single_cc_check(event):
     cc_input = event.message.text.split(' ', 1)[1].strip()
     cards = extract_cc(cc_input)
     if not cards:
-        await event.reply(premium_emoji("❌ Iɴᴠᴀʟɪᴅ CC ғᴏʀᴍᴀᴛ. Usᴇ: <code>/cc ᴄᴀʀᴅ|ᴍᴍ|ʏʏ|ᴄᴠᴠ</code>"), parse_mode='html')
+        await event.reply(premium_emoji("❌ Iɴᴠᴀʟɪᴅ CC ғᴏʀᴍᴀᴛ. Usᴇ: <code>/sh ᴄᴀʀᴅ|ᴍᴍ|ʏʏ|ᴄᴠᴠ</code>"), parse_mode='html')
         return
     card = cards[0]
     status_msg = await event.reply(premium_emoji(f"🔄 Cʜᴇᴄᴋɪɴɢ <code>{card}</code>..."), parse_mode='html')
@@ -896,7 +895,7 @@ async def single_cc_check(event):
     except Exception as e:
         await status_msg.edit(premium_emoji(f"❌ Eʀʀᴏʀ: {e}"), parse_mode='html')
 
-@bot.on(events.NewMessage(pattern='/chk'))
+@bot.on(events.NewMessage(pattern='/msh'))
 async def check_command(event):
     user_id = event.sender_id
     try:
